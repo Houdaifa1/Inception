@@ -1,8 +1,12 @@
 FROM    debian:bullseye
 
 RUN     apt update && apt upgrade -y && \
-        apt install -y php php-fpm && \
-        apt install -y php-mysql php-curl tar wget
+        apt install -y php7.4 php7.4-fpm && \
+        apt install -y php7.4-mysql php7.4-curl tar wget
+
+RUN     mkdir -p /run/php/
+
+RUN     sed -i 's|listen = /run/php/php7.4-fpm.sock| listen = 9000|' /etc/php/7.4/fpm/pool.d/www.conf
 
 RUN     wget https://wordpress.org/wordpress-6.8.1.tar.gz
 
@@ -12,4 +16,4 @@ RUN     rm wordpress-*tar.gz
 
 EXPOSE  9000
 
-CMD     ["php-fpm", "-F", "daemon off;"]
+CMD     ["php-fpm7.4", "-F"]
