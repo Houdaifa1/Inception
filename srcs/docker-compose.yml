@@ -1,6 +1,23 @@
 services :
   nginx :
-    build : nginx
-    ports : 
+    build   : nginx
+    ports   : 
       - "443:443"
-
+    depends_on :
+      - wordpress
+    volumes :
+      - wordpress_files:/var/html/www
+  mariadb :
+    build   : mariadb
+    volumes :
+      - wordpress_db:/var/lib/mysql
+  wordpress :
+    build   : wordpress
+    volumes :
+      - wordpress_files:/wordpress
+    depends_on :
+      - mariadb
+volumes :
+  wordpress_db : {}
+  wordpress_files : {}
+     
