@@ -1,23 +1,31 @@
 services :
   nginx :
-    build   : nginx
-    ports   : 
+    build       : nginx
+    ports       : 
       - "443:443"
     depends_on :
       - wordpress
-    volumes :
-      - wordpress_files:/var/html/www
+    volumes     :
+      - wordpress_files:/var/www/html
   mariadb :
-    build   : mariadb
-    volumes :
+    build       : mariadb
+    ports       : 
+      - "3306:3306"  # only for test porpuse
+    volumes     :
       - wordpress_db:/var/lib/mysql
-  wordpress :
-    build   : wordpress
-    volumes :
-      - wordpress_files:/var/html/www
+    
+  wordpress     :
+    build       : wordpress
     depends_on :
       - mariadb
+    environment :
+      WORDPRESS_DB_NAME: wp_db
+      WORDPRESS_DB_USER: mariadb_user
+      WORDPRESS_DB_PASSWORD: mariadb_user123
+      WORDPRESS_DB_HOST: mariadb:3306
+    volumes     :
+      - wordpress_files:/var/www/html
 volumes :
-  wordpress_db : {}
-  wordpress_files : {}
+  wordpress_db :
+  wordpress_files :
      
