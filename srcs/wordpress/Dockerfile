@@ -14,6 +14,18 @@ RUN     tar -xvf wordpress-*tar.gz
 
 RUN     rm wordpress-*tar.gz
 
+COPY    ./conf/index.php wordpress/index.php
+
+RUN     mv wordpress /wordpress_src
+
+
+COPY    ./conf/entrypoint.sh   /entrypoint.sh
+
+RUN     chmod +x /entrypoint.sh
+
+
 EXPOSE  9000
+
+ENTRYPOINT [ "/entrypoint.sh" ]
 
 CMD     ["php-fpm7.4", "-F"]

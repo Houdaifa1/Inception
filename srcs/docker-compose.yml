@@ -14,7 +14,7 @@ services :
   wordpress :
     build   : wordpress
     volumes :
-      - wordpress_files:/wordpress
+      - wordpress_files:/var/html/www
     depends_on :
       - mariadb
 volumes :
