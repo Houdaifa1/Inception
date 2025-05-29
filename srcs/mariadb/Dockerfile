@@ -1,12 +1,19 @@
-FROM    debian:bullseye
+FROM            debian:bullseye
 
-RUN     apt update && apt upgrade -y && \
-        apt install -y mariadb-server
+RUN             apt update && apt upgrade -y && \
+                apt install -y mariadb-server
 
-RUN     mkdir -p /run/mysqld/ && chown mysql:mysql /run/mysqld
+ENV             MYSQL_ROOT_PASSWORD=test123 MYSQL_DATABASE=db1 \
+                MYSQL_USER=user1 MYSQL_PASSWORD=user123
 
-RUN     sed -i 's|bind-address            = 127.0.0.1|bind-address = 0.0.0.0|' /etc/mysql/mariadb.conf.d/50-server.cnf
+RUN             mkdir -p /run/mysqld/ && chown mysql:mysql /run/mysqld
 
-EXPOSE  3306
+RUN             sed -i 's|bind-address            = 127.0.0.1|bind-address = 0.0.0.0|' /etc/mysql/mariadb.conf.d/50-server.cnf
+
+COPY            ./conf/entrypoint.sh /entrypoint.sh
+
+EXPOSE          3306
+
+ENTRYPOINT      ["/entrypoint.sh"]
 
 CMD     ["mysqld"]
