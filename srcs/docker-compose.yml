@@ -9,20 +9,25 @@ services :
       - wordpress_files:/var/www/html
   mariadb :
     build       : mariadb
-    ports       : 
-      - "3306:3306"  # only for test porpuse
+    environment:
+      MYSQL_ROOT_PASSWORD: test123
+      MYSQL_DATABASE: db1
+      MYSQL_USER: user1
+      MYSQL_PASSWORD: user123
+    # ports       : 
+    #   - "3306:3306"
     volumes     :
       - wordpress_db:/var/lib/mysql
     
   wordpress     :
     build       : wordpress
+    environment:
+      DB_NAME: db1
+      DB_USER: user1
+      DB_PASSWORD: user123
+      DB_HOST: mariadb
     depends_on :
       - mariadb
-    environment :
-      WORDPRESS_DB_NAME: wp_db
-      WORDPRESS_DB_USER: mariadb_user
-      WORDPRESS_DB_PASSWORD: mariadb_user123
-      WORDPRESS_DB_HOST: mariadb:3306
     volumes     :
       - wordpress_files:/var/www/html
 volumes :

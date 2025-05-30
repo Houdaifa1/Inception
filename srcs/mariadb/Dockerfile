@@ -3,9 +3,6 @@ FROM            debian:bullseye
 RUN             apt update && apt upgrade -y && \
                 apt install -y mariadb-server gettext-base
 
-ENV             MYSQL_ROOT_PASSWORD=test123 MYSQL_DATABASE=db1 \
-                MYSQL_USER=user1 MYSQL_PASSWORD=user123
-
 RUN             mkdir -p /run/mysqld/ && chown mysql:mysql /run/mysqld
 
 RUN             sed -i 's|bind-address            = 127.0.0.1|bind-address = 0.0.0.0|' /etc/mysql/mariadb.conf.d/50-server.cnf
