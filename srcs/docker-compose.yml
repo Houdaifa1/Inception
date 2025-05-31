@@ -5,8 +5,11 @@ services :
       - "443:443"
     depends_on :
       - wordpress
+    env_file :
+      - .env
     volumes     :
       - wordpress:/var/www/html
+      - ${ssl_certs_path}:/certs/
     networks    :
       - app_net
   mariadb :
