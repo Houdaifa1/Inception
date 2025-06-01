@@ -1,19 +1,25 @@
-FROM    debian:bullseye
+FROM            debian:bullseye
 
-RUN     apt-get update && apt-get install nginx -y
+RUN             apt update && apt upgrade -y && \
+                apt install -y nginx gettext-base
 
 # apt install openssl
 # openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /certs/nginx_cert.key -out /certs/nginx_cert.crt
 
-# delete default http config
-RUN     rm -f /etc/nginx/conf.d/default.conf \
-        && rm -f /etc/nginx/sites-enabled/default \
-        && rm -f /etc/nginx/sites-available/default
+RUN             rm -f /etc/nginx/conf.d/default.conf \
+                && rm -f /etc/nginx/sites-enabled/default \
+                && rm -f /etc/nginx/sites-available/default 
 
-RUN     mkdir /certs
+RUN             mkdir /certs
 
-COPY	./conf/default.conf /etc/nginx/conf.d/default.conf
+COPY	        ./conf/default.conf /default.conf
 
-EXPOSE  443
+COPY	        ./tools/entrypoint.sh /entrypoint.sh
 
-CMD     ["nginx","-g", "daemon off;"]
+RUN             chmod +x /entrypoint.sh
+
+EXPOSE          443
+
+ENTRYPOINT      ["/entrypoint.sh"]
+
+CMD             ["nginx","-g", "daemon off;"]

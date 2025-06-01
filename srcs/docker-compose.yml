@@ -7,6 +7,8 @@ services :
       - wordpress
     env_file :
       - .env
+    environment :
+      - DOMAIN_NAME
     volumes     :
       - wordpress:/var/www/html
       - ${ssl_certs_path}:/certs/
