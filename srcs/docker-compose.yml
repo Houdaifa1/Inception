@@ -1,6 +1,8 @@
 services :
   nginx :
-    build       : nginx
+    build         : requirements/nginx
+    image         : nginx
+    container_name: nginx
     ports       : 
       - "443:443"
     depends_on :
@@ -15,7 +17,9 @@ services :
     networks    :
       - app_net
   mariadb :
-    build       : mariadb
+    build         : requirements/mariadb
+    image         : mariadb
+    container_name: mariadb
     env_file :
       - .env
     environment:
@@ -29,7 +33,9 @@ services :
       - app_net
     
   wordpress     :
-    build       : wordpress
+    build         : requirements/wordpress
+    image         : wordpress
+    container_name: wordpress
     env_file :
       - .env
     environment:
