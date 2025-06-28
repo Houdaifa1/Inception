@@ -16,7 +16,6 @@ COPY	        ./conf/default.conf /default.conf
 
 COPY	        ./tools/entrypoint.sh /entrypoint.sh
 
-
 RUN             chmod +x /entrypoint.sh
 
 EXPOSE          443

@@ -17,4 +17,4 @@ EXPOSE          3306
 
 ENTRYPOINT      ["/entrypoint.sh"]
 
-CMD     ["mysqld"]
+CMD             ["mysqld", "--init-file=/tmp/init.sql"]

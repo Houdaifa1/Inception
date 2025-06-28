@@ -1,7 +1,7 @@
 services :
   nginx :
     build         : requirements/nginx
-    image         : nginx
+    restart: unless-stopped
     container_name: nginx
     ports       : 
       - "443:443"
@@ -18,7 +18,7 @@ services :
       - app_net
   mariadb :
     build         : requirements/mariadb
-    image         : mariadb
+    restart: unless-stopped
     container_name: mariadb
     env_file :
       - .env
@@ -34,7 +34,7 @@ services :
     
   wordpress     :
     build         : requirements/wordpress
-    image         : wordpress
+    restart: unless-stopped
     container_name: wordpress
     env_file :
       - .env
