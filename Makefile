@@ -15,4 +15,12 @@ stop :
 	docker compose -f $(COMPOSE_FILE) stop
 
 down :
+	docker compose -f $(COMPOSE_FILE) down
+
+clean:
+	docker compose -f $(COMPOSE_FILE) down --rmi all
+
+fclean:
 	docker compose -f $(COMPOSE_FILE) down -v --rmi all
+
+re: fclean all
