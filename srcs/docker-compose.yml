@@ -46,6 +46,7 @@ services :
       - DB_USER
       - DB_PASSWORD
       - DB_HOST
+      - DOMAIN_NAME
     depends_on :
       - mariadb
     volumes     :

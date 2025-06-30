@@ -14,5 +14,9 @@ sed -i \
   -e "s|localhost|$DB_HOST|" \
   /var/www/html/wp-config.php 
 
+echo "define('WP_HOME', 'https://hdrahm.42.ma');" >> /var/www/html/wp-config.php
+echo "define('WP_SITEURL', 'https://hdrahm.42.ma');" >> /var/www/html/wp-config.php
+
+
 echo "[INFO] Starting PHP-FPM..."
 exec "$@"
