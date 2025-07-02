@@ -9,7 +9,7 @@ RUN             sed -i 's|bind-address            = 127.0.0.1|bind-address = 0.0
 
 COPY            ./conf/init.sql /init.sql
 
-COPY            ./conf/entrypoint.sh /entrypoint.sh
+COPY            ./tools/entrypoint.sh /entrypoint.sh
 
 RUN             chmod +x /entrypoint.sh
 
