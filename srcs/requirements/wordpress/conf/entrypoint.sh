@@ -16,9 +16,14 @@ if [ ! -f /var/www/html/wp-config.php ]; then
       -e "s|localhost|$DB_HOST|" \
       /var/www/html/wp-config.php 
 
-    echo "define('WP_HOME', 'https://$DOMAIN_NAME');" >> /var/www/html/wp-config.php
-    echo "define('WP_SITEURL', 'https://$DOMAIN_NAME');" >> /var/www/html/wp-config.php
+    echo  "define('WP_HOME', 'https://$DOMAIN_NAME');" >> /var/www/html/wp-config.php
+    echo  "define('WP_SITEURL', 'https://$DOMAIN_NAME');" >> /var/www/html/wp-config.php
+    echo  "define('FS_METHOD', 'direct');" >> /var/www/html/wp-config.php
+
 fi
+
+chown -R www-data:www-data /var/www/html
+chmod -R 755 /var/www/html
 
 echo "[INFO] Starting PHP-FPM..."
 exec "$@"

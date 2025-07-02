@@ -18,7 +18,6 @@ RUN     rm wordpress-*tar.gz
 
 RUN     mv wordpress /wordpress_src
 
-
 COPY    ./conf/entrypoint.sh   /entrypoint.sh
 
 RUN     chmod +x /entrypoint.sh
